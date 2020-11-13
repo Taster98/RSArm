@@ -1,5 +1,11 @@
 @ Questo è il main effettivo che effettua prima la codifica e poi la decodifica di un certo messaggio
 @ con la chiave pubblica e privata.
+@ Per la crittografia RSA ho bisogno: Del messaggio 'msg' da cifrare (un intero),
+@ di 2 numeri primi casuali 'p' e 'q', del prodotto di questi due numeri 'n' = p*q,
+@ della phi di Eulero dei numeri primi scelti 'phi' = (p-1)*(q-1), di un numero intero
+@ 'e' minore di 'n' e coprimo con 'phi'. Infine mi calcolo la chiave privata 'd' che 
+@ è anch'essa un intero tale che e*d = 1 mod(phi(n)) (ossia che sia l'inverso in modulo 
+@ di 'e').
 
 .data
 
@@ -19,7 +25,6 @@ main:	push {lr}
 	ldr r0, =start
 	bl printf
 	pop {lr}
-	push {r4-r7}
 	mov r4, #3
 	mov r3, #7
 	mov r2, r4
