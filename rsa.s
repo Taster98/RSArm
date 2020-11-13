@@ -58,7 +58,7 @@ div:	cmp r7, #1
 	add r5, r5, #1
 	b div    @ in R5 ho il risultato della divisione (quindi la mia d) mentre in R6 ho la mia e (5).
 endiv:	mov r7, r5 	@ arrivato qui, ho calcolato il mio d (in r7)
-	mov r4, #19	@ in r4 metto il mio messaggio (20)
+	mov r4, #19	@ in r4 metto il mio messaggio (19)
 	push {r0-r1, r4, lr}
 	ldr r0, =outp1
 	mov r1, r4
