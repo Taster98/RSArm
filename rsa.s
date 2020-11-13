@@ -106,10 +106,3 @@ endmod2: mov r1, r2
 	push {lr}
 	bl printf
 	pop {pc}
-	
-
-
-
-
-
-
