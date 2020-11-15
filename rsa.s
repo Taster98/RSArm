@@ -68,18 +68,19 @@ endiv:	mov r7, r5 	@ arrivato qui, ho calcolato il mio d (in r7)
 	mov r2, r6 @ copio e in r2
 	mov r7, r4
 	@ in r4 mi tengo il msg:
-pow:	cmp r2, #1
-	beq endpow
-	mul r4, r4, r7
-	sub r2, r2, #1
-	b pow
-endpow:	mov r2, r4 @ ora devo fare in modulo
-mod:	cmp r2, #21
-	blt endmod
-	sub r2, r2, #21
-	b mod
-	@ a questo punto ho finalmente ricavato il mio crittogramma c, lo stampo:
-endmod:	push {r0-r1, r7, lr}
+	push {r0,r1, lr}
+	mov r0, r4
+	mov r1, r2
+	bl mypow
+	mov r2, r0 @ ora devo fare in modulo
+	pop {r0, r1, lr}
+	push {r0, r1, lr}
+	mov r0, r2
+	mov r1, #21
+	bl mymod
+	mov r2, r0
+	pop {r0, r1, lr}
+	push {r0-r1, r7, lr}
 	ldr r0, =outp2
 	mov r1, r2
 	mov r6, r2 @ copio r2 in r6
@@ -91,17 +92,19 @@ endmod:	push {r0-r1, r7, lr}
 	mov r2, r5
 	@ il mio crt lo copio in r4
 	mov r4, r6
-pow2:	cmp r2, #1
-	beq endpow2
-	mul r6, r6, r4
-	sub r2, r2, #1
-	b pow2
-endpow2:	mov r2, r6 @ ora devo fare in modulo
-mod2:	cmp r2, #21
-	blt endmod2
-	sub r2, r2, #21
-	b mod2
-endmod2: mov r1, r2
+	push {r0, r1, lr}
+	mov r0, r6
+	mov r1, r2
+	bl mypow
+	mov r2, r0
+	pop {r0, r1, lr} @ ora devo fare in modulo
+	push {r0, r1, lr}
+	mov r0, r2
+	mov r1, #21
+	bl mymod
+	mov r2, r0
+	pop {r0, r1, lr}
+	mov r1, r2
 	ldr r0, =outp3
 	push {lr}
 	bl printf
